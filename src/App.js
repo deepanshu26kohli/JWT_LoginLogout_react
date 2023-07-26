@@ -1,25 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import Form from './Components/Form'
 
-function App() {
+import { BrowserRouter, Routes, Route , Router } from "react-router-dom";
+
+import Home from './Components/Home';
+import Navbar from './Components/Navbar';
+import NoPage from './Components/NoPage';
+import Authuser from './Components/Authuser';
+import Guest from './Components/Guest';
+import Dashboard from './Components/Dashboard';
+const App = () => {
+  const { getToken } = Authuser()
+   if(!getToken()){
+    return <Guest/>
+   }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+    <>
+  
+  
+     
+      <Navbar/>
+      
+        <Routes>
+          <Route exact path="/" element={<Home />} />
+          <Route exact path="/login" element={<Form />} />
+          <Route exact path="/dashboard" element={<Dashboard/>}/>
+          <Route path="*" element={<NoPage />} />
+        </Routes>
+        
+    
+
+    </>
+  )
 }
 
-export default App;
+export default App
